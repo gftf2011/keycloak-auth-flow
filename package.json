@@ -1,0 +1,16 @@
+{
+  "name": "keycloak-auth-flow",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "docker:down": "docker-compose down",
+    "predocker:clear:dev": "rm -rf docker-compose.yml || true && cat docker/dev/docker-compose.yml >> docker-compose.yml",
+    "docker:clear:dev": "docker-compose down && docker image prune -a -f && docker volume prune -f",
+    "script:exec:dev": "chmod +x ./scripts/dev/keycloak/init.sh",
+    "predocker:up:dev": "rm -rf docker-compose.yml || true && cat docker/dev/docker-compose.yml >> docker-compose.yml",
+    "docker:up:dev": "npm run script:exec:dev && docker-compose up -d --remove-orphans"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

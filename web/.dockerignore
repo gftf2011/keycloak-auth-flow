@@ -1,0 +1,8 @@
+node_modules/
+.dockerignore
+.eslintrc.cjs
+.gitignore
+.nvmrc
+LICENSE
+package-lock.json
+README.md

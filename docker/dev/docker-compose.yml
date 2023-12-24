@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  postgres-keycloak:
+    image: postgres:14-alpine
+    container_name: postgres-keycloak
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_DB: keycloak
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+
+  keycloak:
+    build:
+      context: .
+      dockerfile: ./docker/dev/images/keycloak/Dockerfile
+      args:
+        db_vendor: POSTGRES
+        db_addr: postgres-keycloak
+        db_user: keycloak
+        db_password: keycloak
+        db_database: keycloak
+        keycloak_admin: admin
+        keycloak_admin_password: admin
+    container_name: keycloak
+    restart: always
+    command: ["start-dev"]
+    healthcheck:
+      test:
+        ["CMD", "curl", "--head", "-fsS", "http://localhost:8080/health/ready"]
+      start_period: 1m
+      interval: 60s
+      timeout: 15s
+      retries: 8
+    ports:
+      - 8080:8080
+    depends_on:
+      postgres-keycloak:
+        condition: service_healthy
+
+  keycloak_watcher:
+    build:
+      context: .
+      dockerfile: ./docker/dev/images/keycloak-watcher/Dockerfile
+    container_name: keycloak_watcher
+    depends_on:
+      keycloak:
+        condition: service_healthy
