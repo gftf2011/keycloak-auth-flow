@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-namespace */
-export namespace Storage {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export namespace StorageGateway {
   export enum KEYS {
     AUTH = "AUTH",
   }
 }
 
-export interface Storage {
+export interface StorageGateway {
   set: (key: string, value: object | null) => void;
   get: (key: string) => any;
   clear: () => void;

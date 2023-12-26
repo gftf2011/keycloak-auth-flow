@@ -1,13 +1,13 @@
 import { RouteProps, Navigate } from "react-router-dom";
 
-import { Storage } from "../../application/contracts/gateways/storage";
+import { StorageGateway } from "../../application/contracts/gateways/storage";
 
 type Props = {
-  storage: Storage;
+  storage: StorageGateway;
 } & RouteProps;
 
 export const PrivateRoute: React.FC<Props> = ({ storage, children }) => {
-  const loggedIn = storage.get(Storage.KEYS.AUTH);
+  const loggedIn = storage.get(StorageGateway.KEYS.AUTH);
   return loggedIn && loggedIn.authenticated ? (
     <>{children}</>
   ) : (

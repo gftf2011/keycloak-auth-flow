@@ -2,7 +2,7 @@ import React from "react";
 import { ReactRouterDomProvider } from "../adapters";
 import {
   makeHome,
-  makeProtected,
+  makeProfile,
   makeSignIn,
 } from "../factories/presentation/pages";
 
@@ -16,8 +16,8 @@ const routes = [
     element: makeSignIn({}),
   },
   {
-    path: "/protected",
-    element: makeProtected({}),
+    path: "/profile",
+    element: makeProfile({}),
   },
 ];
 

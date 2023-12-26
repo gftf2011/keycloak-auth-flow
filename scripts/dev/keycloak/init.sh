@@ -58,7 +58,7 @@ create_client_response_web=$(curl -X POST \
     "secret": "F0gLCQpDuK0sIukW1qCqPIFirDBOPHxA",
     "rootUrl": "http://localhost:5173/",
     "redirectUris": [ "http://localhost:5173/*" ],
-    "webOrigins": [ "http://localhost:5173/" ]
+    "webOrigins": [ "*" ]
   }')
 
 echo $create_client_response_web

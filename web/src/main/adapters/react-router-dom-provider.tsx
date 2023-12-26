@@ -9,17 +9,6 @@ type Props = {
   routes: RouteObject[];
 };
 
-// const routes = [
-//   {
-//     path: '/',
-//     element: {}
-//   },
-//   {
-//     path: '/sign-in',
-//     element: {},
-//   },
-// ];
-
 export const ReactRouterDomProvider: React.FC<Props> = ({ routes }) => {
   const router = createBrowserRouter(routes);
   return (

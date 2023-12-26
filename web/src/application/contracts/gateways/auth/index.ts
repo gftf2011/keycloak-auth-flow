@@ -6,7 +6,6 @@ export type GetClientInfoOutput = {
 };
 
 export interface AuthGateway {
-  createClient: (config: any) => void;
-  initRegistrationOrLogin: () => Promise<void>;
+  initRegistrationOrLogin: (config: any) => Promise<void>;
   getClientInfo: () => GetClientInfoOutput;
 }

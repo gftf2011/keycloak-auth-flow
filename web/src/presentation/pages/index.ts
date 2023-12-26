@@ -1,3 +1,3 @@
 export * from "./home";
-export * from "./protected";
+export * from "./profile";
 export * from "./sign-in";

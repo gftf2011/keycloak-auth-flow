@@ -1,3 +1,3 @@
-export * from "./home";
-export * from "./protected";
-export * from "./sign-in";
+export * from "./home.factory";
+export * from "./profile.factory";
+export * from "./sign-in.factory";
