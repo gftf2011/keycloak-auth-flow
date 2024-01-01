@@ -6,7 +6,7 @@ import { STORAGE_TYPE, StorageImpl } from "../../../../infra/gateways/storage";
 import { SignInPage } from "../../../../presentation/pages";
 
 export const makeSignIn: React.FC = () => {
-  const storage = new StorageImpl(STORAGE_TYPE.LOCAL);
+  const storage = new StorageImpl(STORAGE_TYPE.SESSION);
   const authGateway = KeycloakAuth.getInstance();
 
   const service = new AuthServiceImpl(

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../application/contracts/services/auth";
 
 type Props = {
@@ -6,15 +7,17 @@ type Props = {
 };
 
 export const SignInPage: React.FC<Props> = ({ authService }) => {
-  const isRun = useRef(false);
+  const navigate = useNavigate();
+  const running = useRef(false);
 
   useEffect(() => {
-    if (isRun.current) return;
+    if (running.current) return;
 
-    isRun.current = true;
+    running.current = true;
 
     const fetch = async (): Promise<void> => {
       await authService.authenticate();
+      navigate("/profile");
     };
 
     fetch();
