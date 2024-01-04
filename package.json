@@ -10,7 +10,15 @@
     "predocker:up:dev": "rm -rf docker-compose.yml || true && cat docker/dev/docker-compose.yml >> docker-compose.yml",
     "docker:up:dev": "npm run script:exec:dev && docker-compose up -d --remove-orphans"
   },
-  "keywords": [],
+  "keywords": [
+    "javascript",
+    "docker",
+    "typescript",
+    "keycloak",
+    "docker-compose",
+    "keycloak-rest-api",
+    "keycloak-client"
+  ],
   "author": "Gabriel Ferrari Tarallo Ferraz",
   "license": "MIT"
 }
