@@ -1,14 +1,14 @@
 {
   "name": "keycloak-auth-flow-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Keycloak Node.JS Client Application",
+  "main": "dist/main/server/index.js",
   "scripts": {
-    "start:dev": "rm -rf .env && cat ./env/dev/.env >> .env && tsc -p tsconfig-build.json && node --env-file=.env dist/main/server/index.js"
+    "start:dev": "rm -rf .env && cat ./env/dev/.env >> .env && tsc -p tsconfig-build.json && node --env-file=.env 111"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Gabriel Ferrari Tarallo Ferraz",
+  "license": "MIT",
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/express": "^4.17.13",

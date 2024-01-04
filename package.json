@@ -1,7 +1,7 @@
 {
   "name": "keycloak-auth-flow",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a project that shows how to integrate a keycloak client with a React.JS application and a Node.JS application",
   "scripts": {
     "docker:down": "docker-compose down",
     "predocker:clear:dev": "rm -rf docker-compose.yml || true && cat docker/dev/docker-compose.yml >> docker-compose.yml",
@@ -11,6 +11,6 @@
     "docker:up:dev": "npm run script:exec:dev && docker-compose up -d --remove-orphans"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gabriel Ferrari Tarallo Ferraz",
   "license": "MIT"
 }
