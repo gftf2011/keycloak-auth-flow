@@ -1,10 +1,6 @@
 import { Request, Response } from 'express';
 import { UserService } from '../../contracts/services/user';
-import {
-  AccessTokenExpiredError,
-  UserDoesNotExistsError,
-  ServerError,
-} from '../../errors';
+import { AccessTokenExpiredError, ServerError } from '../../errors';
 
 export class ExpressUserController {
   constructor(private readonly userService: UserService) {}
@@ -21,9 +17,6 @@ export class ExpressUserController {
     } catch (e) {
       if (e instanceof AccessTokenExpiredError) {
         return res.status(401).json(e);
-      }
-      if (e instanceof UserDoesNotExistsError) {
-        return res.status(400).json(e);
       }
       return res.status(500).json(new ServerError());
     }

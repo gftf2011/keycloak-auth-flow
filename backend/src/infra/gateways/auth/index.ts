@@ -30,9 +30,13 @@ export class KeycloakAuthGatewayImpl implements AuthGateway {
         },
       );
 
-      console.log(response.data);
-
-      return response.data;
+      return {
+        username: response.data.preferred_username,
+        id: response.data.sub,
+        email: response.data.email,
+        first_name: response.data.given_name,
+        last_name: response.data.family_name,
+      };
     } catch (e) {
       console.log(e);
       throw new AccessTokenExpiredError();
@@ -54,6 +58,10 @@ export class KeycloakAuthGatewayImpl implements AuthGateway {
           },
         },
       );
+
+      if (!response.data.active) {
+        throw new Error();
+      }
 
       return response.data;
     } catch (e) {

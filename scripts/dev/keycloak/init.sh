@@ -3,7 +3,6 @@ keycloak_realm='master'
 keycloak_new_realm='keycloak-auth-flow'
 keycloak_client_id_web='f62e00fa-f1b5-4791-9486-3befce70442e'
 keycloak_client_id_backend='f62e00fa-f1b5-4791-9486-3befce70442f'
-# backend_client_service_account_username="service-account-${keycloak_client_id_backend}"
 
 access_token=$(curl -X POST \
   $keycloak_url/realms/$keycloak_realm/protocol/openid-connect/token \
@@ -15,13 +14,6 @@ access_token=$(curl -X POST \
 
 echo $access_token
 
-# admin_id=$(curl -X GET \
-#   $keycloak_url/admin/realms/$keycloak_realm/clients?clientId=admin-cli \
-#   -H 'Content-Type: application/json' \
-#   -H "Authorization: Bearer ${access_token}" | jq -r '.[0].id')
-
-# echo $admin_id
-
 create_realm_response=$(curl -X POST \
   $keycloak_url/admin/realms \
   -H 'Content-Type: application/json' \
@@ -30,12 +22,6 @@ create_realm_response=$(curl -X POST \
     "realm": "'"${keycloak_new_realm}"'",
     "enabled":true
   }')
-
-# create_realm_response=$(curl -X POST \
-#   $keycloak_url/admin/realms \
-#   -H 'Content-Type: application/json' \
-#   -H "Authorization: Bearer ${access_token}" \
-#   -d @"./realm.json")
 
 echo $create_realm_response
 
@@ -77,6 +63,8 @@ create_client_response_web=$(curl -X POST \
     "webOrigins": [ "*" ]
   }')
 
+# "defaultClientScopes": ["openid", "profile", "email", "offline_access"],
+
 echo $create_client_response_web
 
 create_client_response_backend=$(curl -X POST \
@@ -91,8 +79,8 @@ create_client_response_backend=$(curl -X POST \
     "enabled": true,
     "consentRequired": false,
     "fullScopeAllowed": false,
-    "authorizationServicesEnabled": false,
-    "directAccessGrantsEnabled": true,
+    "authorizationServicesEnabled": true,
+    "directAccessGrantsEnabled": false,
     "standardFlowEnabled": true,
     "serviceAccountsEnabled": true,
     "surrogateAuthRequired": false,
@@ -101,44 +89,20 @@ create_client_response_backend=$(curl -X POST \
     "secret": "F1gLCQpDuK0sIukW1qCqPIFirDBOPHxA",
     "rootUrl": "http://localhost:3001/",
     "redirectUris": [ "http://localhost:3001/*" ],
-    "webOrigins": [ "*" ]
+    "webOrigins": [ "*" ],
+    "protocolMappers": [{
+      "name": "refresh-token",
+      "protocol": "openid-connect",
+      "protocolMapper": "oidc-usersession-model-realm",
+      "consentRequired": false,
+      "config": {
+        "user.session.note": "Refresh Token",
+        "id.token.claim": "true",
+        "access.token.claim": "true",
+        "claim.name": "refresh_token",
+        "jsonType.label": "String"
+      }
+    }]
   }')
 
 echo $create_client_response_backend
-
-# backend_client_service_account_user_id=$(curl -X GET \
-#   $keycloak_url/admin/realms/$keycloak_new_realm/clients/a92e1835-81a4-4de7-940f-df9397b67071/service-account-user \
-#   -H 'Content-Type: application/json' \
-#   -H "Authorization: Bearer ${access_token}" | jq -r '.id')
-
-# echo $backend_client_service_account_user_id
-
-# role_mapping=$(curl -X POST \
-#   $keycloak_url/admin/realms/$keycloak_new_realm/users/$backend_client_service_account_user_id/role-mappings/clients/a92e1835-81a4-4de7-940f-df9397b67071 \
-#   -H "Authorization: Bearer ${access_token}" \
-#   -H 'Content-Type: application/json' \
-#   --data-raw '[
-#     {
-#       "id": "0d18220a-fadb-4cc0-ae58-5492c16d3258",
-#       "name": "manage-users",
-#       "description": "${role_manage-users}",
-#       "composite": false,
-#       "clientRole": true,
-#       "containerId": "ad28f84c-22ea-4be1-9a13-c58bd5918859"
-#     }
-#   ]')
-
-# role_mapping=$(curl -X POST \
-#   $keycloak_url/admin/realms/$keycloak_new_realm/clients/a92e1835-81a4-4de7-940f-df9397b67071/roles \
-#   -H "Authorization: Bearer ${access_token}" \
-#   -H 'Content-Type: application/json' \
-#   --data-raw '{
-#     "id": "0d18220a-fadb-4cc0-ae58-5492c16d3258",
-#     "name": "manage-users",
-#     "description": "${role_manage-users}",
-#     "composite": false,
-#     "clientRole": true,
-#     "containerId": "ad28f84c-22ea-4be1-9a13-c58bd5918859"
-#   }')
-
-# echo $role_mapping

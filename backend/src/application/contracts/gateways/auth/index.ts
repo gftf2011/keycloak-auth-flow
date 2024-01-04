@@ -34,13 +34,11 @@ export type GetUserInfoInput = {
 };
 
 export type GetUserInfoOutput = {
-  sub: string;
-  email_verified: boolean;
-  name: string;
-  preferred_username: string;
-  given_name: string;
-  family_name: string;
+  id: string;
   email: string;
+  first_name: string;
+  last_name: string;
+  username: string;
 };
 
 export interface AuthGateway {
