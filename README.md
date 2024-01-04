@@ -32,3 +32,7 @@ Here you'll find how to run a keycloak container with Docker and Docker-Compose 
 - [x] Docker - [https://www.docker.com/](https://www.docker.com/)
 
 <br/>
+
+---
+
+Made with lots of :heart: by [Gabriel Ferrari Tarallo Ferraz](https://www.linkedin.com/in/gabriel-ferrari-tarallo-ferraz/)
